@@ -1,0 +1,685 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- === MAXIMUM SECURITY HEADERS === -->
+<!-- 1. Strict Content Security Policy (CSP): Blocks unauthorized scripts, XSS attacks, and malicious IFRAMEs -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;">
+<!-- 2. Anti-Clickjacking: Prevents the site from being embedded in a malicious framing site -->
+<meta http-equiv="X-Frame-Options" content="DENY">
+<!-- 3. Anti-MIME Sniffing: Forces the browser to strictly adhere to the declared content types -->
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<!-- 4. Referrer Privacy: Prevents leaking the site's URL parameters to external sites (like Instagram) -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 5. Permissions Policy: Hard-blocks access to sensitive browser APIs (camera, mic, location) -->
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=()">
+<!-- ================================ -->
+
+<title>THE CYBER LEARNER // Topic-Wise Drill (20-Q)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600;700&display=swap');
+
+  :root {
+    --bg-color: #050505;
+    --panel-bg: #0d1117;
+    --primary: #00ff41;
+    --primary-dim: #008f11;
+    --text-main: #e0e0e0;
+    --text-muted: #888;
+    --danger: #ff003c;
+    --accent: #00d4ff;
+    --border-radius: 4px;
+    --glow: 0 0 10px rgba(0, 255, 65, 0.4);
+    --glow-cyan: 0 0 10px rgba(0, 212, 255, 0.4);
+    --glow-danger: 0 0 10px rgba(255, 0, 60, 0.4);
+  }
+
+  body {
+    font-family: 'Fira Code', monospace;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    margin: 0;
+    padding: 20px;
+    background-image: linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--panel-bg);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--primary-dim);
+    box-shadow: var(--glow);
+  }
+
+  .nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #222;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .nav-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 0.85em;
+    padding: 6px 12px;
+    border: 1px solid var(--primary-dim);
+    border-radius: var(--border-radius);
+    transition: all 0.2s;
+    background: rgba(0, 255, 65, 0.05);
+  }
+
+  .nav-link:hover {
+    background: var(--primary);
+    color: #000;
+    box-shadow: var(--glow);
+  }
+
+  .nav-link.accent {
+    color: var(--accent);
+    border-color: rgba(0, 212, 255, 0.5);
+    background: rgba(0, 212, 255, 0.05);
+  }
+
+  .nav-link.accent:hover {
+    background: var(--accent);
+    color: #000;
+    box-shadow: var(--glow-cyan);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 25px;
+    border-bottom: 1px dashed var(--primary-dim);
+    padding-bottom: 20px;
+  }
+
+  h1 {
+    color: var(--primary);
+    margin: 0;
+    font-size: 2.1em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 5px var(--primary);
+  }
+
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 0.9em;
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+
+  .ig-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .ig-link:hover {
+    text-decoration: underline;
+    text-shadow: var(--glow);
+  }
+
+  /* TOPIC SELECTOR */
+  .selector-box {
+    background: #000;
+    border: 1px solid var(--primary-dim);
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    border-radius: var(--border-radius);
+  }
+
+  .selector-label {
+    display: block;
+    color: var(--primary);
+    font-size: 0.85em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  .topic-select {
+    width: 100%;
+    padding: 12px 16px;
+    background: #0d1117;
+    color: #00ff41;
+    border: 1px solid var(--primary);
+    font-family: inherit;
+    font-size: 0.95em;
+    border-radius: var(--border-radius);
+    outline: none;
+    cursor: pointer;
+    box-shadow: inset 0 0 8px rgba(0,255,65,0.2);
+  }
+
+  .topic-select option {
+    background: #0d1117;
+    color: #e0e0e0;
+    padding: 8px;
+  }
+
+  .topic-summary {
+    margin-top: 10px;
+    font-size: 0.8em;
+    color: var(--text-muted);
+  }
+
+  /* HUD */
+  .hud {
+    display: flex;
+    justify-content: space-between;
+    background: #000;
+    padding: 14px 20px;
+    border: 1px solid var(--primary-dim);
+    margin-bottom: 30px;
+    font-weight: bold;
+    color: var(--primary);
+    box-shadow: inset 0 0 10px rgba(0,255,65,0.1);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .hud span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+  }
+
+  .hud-badge {
+    color: var(--accent);
+  }
+
+  .question-block {
+    margin-bottom: 40px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #222;
+  }
+
+  .section-tag {
+    display: inline-block;
+    background: #111;
+    color: var(--primary-dim);
+    font-size: 0.75em;
+    padding: 4px 10px;
+    border: 1px solid var(--primary-dim);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .domain-tag {
+    display: inline-block;
+    background: rgba(0, 212, 255, 0.1);
+    color: var(--accent);
+    font-size: 0.75em;
+    padding: 4px 10px;
+    border: 1px solid rgba(0, 212, 255, 0.4);
+    margin-bottom: 15px;
+    margin-left: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .question-text {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    color: #fff;
+  }
+
+  .options {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+  }
+
+  .option-btn {
+    width: 100%;
+    text-align: left;
+    padding: 15px 20px;
+    background-color: #0a0a0a;
+    border: 1px solid #333;
+    color: var(--text-main);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.95em;
+    font-family: inherit;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .option-btn::before {
+    content: '>';
+    color: var(--primary-dim);
+    margin-right: 10px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .option-btn:hover:not(:disabled) {
+    background-color: #111;
+    border-color: var(--primary);
+    box-shadow: 0 0 8px rgba(0,255,65,0.2);
+  }
+
+  .option-btn:hover:not(:disabled)::before {
+    opacity: 1;
+  }
+
+  .option-btn:disabled {
+    cursor: default;
+  }
+
+  .correct {
+    background-color: rgba(0, 255, 65, 0.1) !important;
+    border-color: var(--primary) !important;
+    color: var(--primary) !important;
+    text-shadow: 0 0 5px rgba(0,255,65,0.5);
+  }
+  
+  .correct::before { content: '[OK]'; opacity: 1; color: var(--primary); }
+
+  .incorrect {
+    background-color: rgba(255, 0, 60, 0.1) !important;
+    border-color: var(--danger) !important;
+    color: var(--danger) !important;
+    text-decoration: line-through;
+  }
+  
+  .incorrect::before { content: '[ERR]'; opacity: 1; color: var(--danger); }
+
+  .feedback {
+    margin-top: 15px;
+    padding: 15px;
+    display: none;
+    font-size: 0.9em;
+    line-height: 1.6;
+    background: #050505;
+    border: 1px solid #333;
+  }
+
+  .feedback.show {
+    display: block;
+    animation: scanline 0.4s ease-out;
+  }
+
+  @keyframes scanline {
+    0% { clip-path: inset(0 100% 0 0); }
+    100% { clip-path: inset(0 0 0 0); }
+  }
+
+  .feedback-correct { border-left: 4px solid var(--primary); }
+  .feedback-incorrect { border-left: 4px solid var(--danger); }
+
+  .controls {
+    display: flex;
+    gap: 15px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+
+  .cmd-btn {
+    flex: 1;
+    min-width: 180px;
+    padding: 15px 20px;
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    font-family: inherit;
+    font-size: 0.95em;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 1px;
+  }
+
+  .cmd-btn:hover {
+    background: var(--primary);
+    color: #000;
+    box-shadow: var(--glow);
+  }
+
+  .cmd-btn.danger {
+    color: var(--danger);
+    border-color: var(--danger);
+  }
+
+  .cmd-btn.danger:hover {
+    background: var(--danger);
+    color: #000;
+    box-shadow: var(--glow-danger);
+  }
+
+  .cmd-btn.accent {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .cmd-btn.accent:hover {
+    background: var(--accent);
+    color: #000;
+    box-shadow: var(--glow-cyan);
+  }
+</style>
+<script>
+/* THE CYBER LEARNER // ANTI-TAMPER INTEGRITY PROTECTION */
+(function(){
+  document.addEventListener('contextmenu',function(e){e.preventDefault();return false;});
+  document.addEventListener('keydown',function(e){
+    if(e.keyCode===123||(e.ctrlKey&&e.shiftKey&&(e.keyCode===73||e.keyCode===74||e.keyCode===67))||(e.ctrlKey&&(e.keyCode===85||e.keyCode===83))){
+      e.preventDefault();
+      return false;
+    }
+  });
+  console.log("%c[SYS_SECURITY]%c The Cyber Learner Runtime is Locked & Protected.", "color:#ff003c;font-weight:bold;font-size:16px;", "color:#00ff41;font-size:12px;");
+})();
+</script>
+</head>
+<body>
+
+<div class="container">
+  <div class="nav-bar">
+    <a href="Home Page.html" class="nav-link">&lt; [RETURN TO HUB]</a>
+    <a href="security-plus-exam.html" class="nav-link accent">[FULL 90-Q EXAM SIMULATOR &gt;]</a>
+  </div>
+
+  <header>
+    <h1>THE CYBER LEARNER // TOPIC DRILL</h1>
+    <div class="subtitle">
+      TARGET: CompTIA Security+ (SY0-701) // MODULE: TOPIC_WISE_20Q<br>
+      > Follow <a href="https://www.instagram.com/the.cyber.learner/" target="_blank" class="ig-link">@the.cyber.learner</a> on Instagram
+    </div>
+  </header>
+
+  <!-- TOPIC SELECTOR -->
+  <div class="selector-box">
+    <label class="selector-label" for="topicDropdown">// SELECT TOPIC DOMAIN TO DRILL (20 QUESTIONS):</label>
+    <select id="topicDropdown" class="topic-select">
+      <option value="ALL">ALL DOMAINS // Rapid Fire 20-Question Mixed Drill</option>
+      <option value="D1">DOMAIN 1 // General Security Concepts & Fundamentals (Sections 1-2)</option>
+      <option value="D2">DOMAIN 2 // Threats, Vulnerabilities & Mitigations (Sections 3, 5, 6, 18, 19, 21, 22)</option>
+      <option value="D3">DOMAIN 3 // Security Architecture & Infrastructure (Sections 4, 14, 15, 16, 20)</option>
+      <option value="D4">DOMAIN 4 // Security Operations & Incident Response (Sections 23, 24, 25, 26)</option>
+      <option value="D5">DOMAIN 5 // Security Program Management, Governance & IAM (Sections 7-13, 17, 27)</option>
+    </select>
+    <div class="topic-summary" id="topicSummary">
+      // Selected topic will generate exactly 20 targeted scenario questions with immediate grading.
+    </div>
+  </div>
+  
+  <div class="hud">
+    <span>[SYS_STAT]: <span class="hud-badge">ONLINE</span></span>
+    <span>[DRILL]: <span id="hud-topic" class="hud-badge">ALL DOMAINS</span></span>
+    <span>[SOLVED]: <span id="answered-count">0</span> / 20</span>
+    <span>[SCORE]: <span id="score-count">0</span> (<span id="score-percent">0%</span>)</span>
+  </div>
+
+  <div id="quiz-container">
+    <!-- 20-Question Drill injects here -->
+  </div>
+
+  <div class="controls">
+    <button class="cmd-btn" id="generateBtn">./generate_new_20q.sh</button>
+    <button class="cmd-btn danger" id="resetBtn">./reset_drill.sh</button>
+    <button class="cmd-btn accent" onclick="location.href='security-plus-exam.html'">./take_full_exam.sh</button>
+  </div>
+</div>
+
+<script src="questions.js"></script>
+<script>
+  const DRILL_LENGTH = 20;
+
+  // Domain Categorization Mapper
+  function getDomainInfo(sec) {
+    if (sec.includes("Section 1:") || sec.includes("Section 2:")) {
+      return { code: "D1", name: "Domain 1: General Concepts" };
+    }
+    if (sec.includes("Section 3:") || sec.includes("Section 5:") || sec.includes("Section 6:") || 
+        sec.includes("Section 18:") || sec.includes("Section 19:") || sec.includes("Section 21:") || sec.includes("Section 22:")) {
+      return { code: "D2", name: "Domain 2: Threats & Mitigations" };
+    }
+    if (sec.includes("Section 4:") || sec.includes("Section 14:") || sec.includes("Section 15:") || 
+        sec.includes("Section 16:") || sec.includes("Section 20:")) {
+      return { code: "D3", name: "Domain 3: Security Architecture" };
+    }
+    if (sec.includes("Section 23:") || sec.includes("Section 24:") || sec.includes("Section 25:") || sec.includes("Section 26:")) {
+      return { code: "D4", name: "Domain 4: Security Operations" };
+    }
+    return { code: "D5", name: "Domain 5: Program Management & IAM" };
+  }
+
+  if (typeof quizData === 'undefined' || quizData.length === 0) {
+    document.getElementById('quiz-container').innerHTML = "<div style='color:#ff003c;'>[ERR] Failed to load questions.js database. Ensure questions.js is in the same directory.</div>";
+  } else {
+    initTopicApp();
+  }
+
+  function initTopicApp() {
+    const topicDropdown = document.getElementById('topicDropdown');
+    const container = document.getElementById('quiz-container');
+    const hudTopic = document.getElementById('hud-topic');
+    const answeredCountEl = document.getElementById('answered-count');
+    const scoreCountEl = document.getElementById('score-count');
+    const scorePercentEl = document.getElementById('score-percent');
+
+    // Retrieve saved topic or default to ALL
+    let currentTopic = localStorage.getItem('secPlusActiveTopic') || 'ALL';
+    topicDropdown.value = currentTopic;
+
+    function getStorageKeys(topic) {
+      return {
+        progressKey: `secPlusTopicProgress_${topic}`,
+        orderKey: `secPlusTopicOrder_${topic}`
+      };
+    }
+
+    // Filter candidate indices based on chosen topic
+    function getCandidateIndices(topic) {
+      const indices = [];
+      quizData.forEach((item, idx) => {
+        if (topic === 'ALL') {
+          indices.push(idx);
+        } else {
+          const dom = getDomainInfo(item.sec);
+          if (dom.code === topic) {
+            indices.push(idx);
+          }
+        }
+      });
+      return indices;
+    }
+
+    // Generate fresh 20 questions for the active topic
+    function generateNewTopicDrill(topic) {
+      const { progressKey, orderKey } = getStorageKeys(topic);
+      localStorage.removeItem(progressKey);
+
+      let candidates = getCandidateIndices(topic);
+      if (candidates.length === 0) candidates = quizData.map((_, i) => i);
+
+      // Shuffle candidates
+      for (let i = candidates.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [candidates[i], candidates[j]] = [candidates[j], candidates[i]];
+      }
+
+      // Pick exactly 20 (or loop if candidate pool is smaller)
+      const selectedOrder = [];
+      let pickIndex = 0;
+      while (selectedOrder.length < DRILL_LENGTH) {
+        selectedOrder.push(candidates[pickIndex % candidates.length]);
+        pickIndex++;
+      }
+
+      localStorage.setItem(orderKey, JSON.stringify(selectedOrder));
+      loadDrill(topic);
+    }
+
+    // Load and render drill
+    function loadDrill(topic) {
+      const { progressKey, orderKey } = getStorageKeys(topic);
+      let savedOrder = JSON.parse(localStorage.getItem(orderKey));
+      let savedState = JSON.parse(localStorage.getItem(progressKey)) || {};
+
+      if (!savedOrder || savedOrder.length !== DRILL_LENGTH) {
+        generateNewTopicDrill(topic);
+        return;
+      }
+
+      hudTopic.innerText = topicDropdown.options[topicDropdown.selectedIndex].text.split('//')[0].trim();
+      container.innerHTML = '';
+
+      let answeredCount = 0;
+      let scoreCount = 0;
+
+      savedOrder.forEach((qIndex, renderIndex) => {
+        const item = quizData[qIndex];
+        const domInfo = getDomainInfo(item.sec);
+
+        const block = document.createElement('div');
+        block.className = 'question-block';
+
+        // Tags
+        const tagContainer = document.createElement('div');
+        
+        const secTag = document.createElement('span');
+        secTag.className = 'section-tag';
+        secTag.innerText = item.sec;
+        tagContainer.appendChild(secTag);
+
+        const domTag = document.createElement('span');
+        domTag.className = 'domain-tag';
+        domTag.innerText = domInfo.name;
+        tagContainer.appendChild(domTag);
+
+        block.appendChild(tagContainer);
+
+        // Question text
+        const qText = document.createElement('div');
+        qText.className = 'question-text';
+        qText.innerText = `[${String(renderIndex + 1).padStart(2, '0')}/${DRILL_LENGTH}] ${item.q}`;
+        block.appendChild(qText);
+
+        // Options
+        const optsList = document.createElement('ul');
+        optsList.className = 'options';
+
+        const feedbackDiv = document.createElement('div');
+        feedbackDiv.className = 'feedback';
+
+        const questionState = savedState[renderIndex];
+
+        item.opts.forEach((optText, optIndex) => {
+          const li = document.createElement('li');
+          const btn = document.createElement('button');
+          btn.className = 'option-btn';
+          btn.innerText = optText;
+
+          if (questionState) {
+            btn.disabled = true;
+            if (optIndex === item.ans) {
+              btn.classList.add('correct');
+            } else if (optIndex === questionState.selected) {
+              btn.classList.add('incorrect');
+            }
+          }
+
+          btn.onclick = function() {
+            const allBtns = optsList.querySelectorAll('.option-btn');
+            allBtns.forEach(b => b.disabled = true);
+
+            let isCorrect = false;
+            if (optIndex === item.ans) {
+              btn.classList.add('correct');
+              isCorrect = true;
+              scoreCount++;
+            } else {
+              btn.classList.add('incorrect');
+              allBtns[item.ans].classList.add('correct');
+            }
+
+            answeredCount++;
+            updateStats(answeredCount, scoreCount);
+
+            feedbackDiv.innerHTML = `<span style="color:${isCorrect ? '#00ff41' : '#ff003c'}">[${isCorrect ? 'SUCCESS' : 'FAILED'}]</span> // ${item.exp}`;
+            feedbackDiv.classList.add(isCorrect ? 'feedback-correct' : 'feedback-incorrect');
+            feedbackDiv.classList.add('show');
+
+            savedState[renderIndex] = { selected: optIndex, isCorrect: isCorrect };
+            localStorage.setItem(progressKey, JSON.stringify(savedState));
+          };
+
+          li.appendChild(btn);
+          optsList.appendChild(li);
+        });
+
+        if (questionState) {
+          answeredCount++;
+          if (questionState.isCorrect) scoreCount++;
+          feedbackDiv.innerHTML = `<span style="color:${questionState.isCorrect ? '#00ff41' : '#ff003c'}">[${questionState.isCorrect ? 'SUCCESS' : 'FAILED'}]</span> // ${item.exp}`;
+          feedbackDiv.classList.add(questionState.isCorrect ? 'feedback-correct' : 'feedback-incorrect');
+          feedbackDiv.classList.add('show');
+        }
+
+        block.appendChild(optsList);
+        block.appendChild(feedbackDiv);
+        container.appendChild(block);
+      });
+
+      updateStats(answeredCount, scoreCount);
+    }
+
+    function updateStats(answered, score) {
+      answeredCountEl.innerText = answered;
+      scoreCountEl.innerText = score;
+      const pct = answered > 0 ? Math.round((score / answered) * 100) : 0;
+      scorePercentEl.innerText = `${pct}%`;
+    }
+
+    // Dropdown change listener
+    topicDropdown.addEventListener('change', (e) => {
+      currentTopic = e.target.value;
+      localStorage.setItem('secPlusActiveTopic', currentTopic);
+      loadDrill(currentTopic);
+    });
+
+    // Reset button
+    document.getElementById('resetBtn').onclick = () => {
+      if (confirm(`[WARNING] Reset progress for ${topicDropdown.options[topicDropdown.selectedIndex].text}?`)) {
+        const { progressKey } = getStorageKeys(currentTopic);
+        localStorage.removeItem(progressKey);
+        loadDrill(currentTopic);
+      }
+    };
+
+    // Generate new button
+    document.getElementById('generateBtn').onclick = () => {
+      if (confirm(`[RELOAD] Generate 20 fresh random questions for ${topicDropdown.options[topicDropdown.selectedIndex].text}?`)) {
+        generateNewTopicDrill(currentTopic);
+      }
+    };
+
+    // Initial load
+    loadDrill(currentTopic);
+  }
+</script>
+
+</body>
+</html>
+
